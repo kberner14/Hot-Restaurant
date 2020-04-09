@@ -19,7 +19,7 @@
         <br>
 
         <div class="text-center">
-            <a href="/reserve"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-credit-card"></span> Make Reservation</button></a>
+            <a href="/makeres"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-credit-card"></span> Make Reservation</button></a>
             <a href="/"><button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-home"></span></button></a>
         </div>
     </div>
@@ -54,5 +54,37 @@
       </footer>
 </div>
     
+
+<script type="text/javascript">
+    function tableRes() {
+      let searchedCharacter = $("#character-search").val().trim();
+
+      // Using a RegEx Pattern to remove spaces from searchedCharacter
+      // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+      searchedCharacter = searchedCharacter.replace(/\s+/g, "").toLowerCase();
+
+      $.get(`/api/makeres/${searchedCharacter}`).then(
+        (data) => {
+          console.log(data);
+          if (data) {
+            $("#tableSection").append();
+          }
+        },
+        (error) => {
+          if (error.status === 404) {
+            // Received status code for "resource not found"
+            $("#name").text(
+              "The force is not strong with this one. Your character was not found."
+            );
+            $("#stats").hide();
+          } else {
+            // some other error response was received
+            console.log(error);
+          }
+        }
+      );
+    };
+  </script>
+
 </body>
 </html>

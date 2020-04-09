@@ -26,10 +26,21 @@ app.get("/api/waitlist", (req, res) => {
 app.get("/api/tables", (req, res) => {
     return res.json(reservation);
 })
-//Display Waitlist route
-app.get("/data/waitlist", (req, res) => {
-    return res.json(waitlist);
+
+app.post("/api/reservation", (req, res) =>{
+    const newRes = req.body 
+
+    if (reservation.length < 5){
+      reservation.push(newRes);
+      res.json(true);
+    }else{
+      waitlist.push(newRes);
+      res.json(false);
+    }
 })
+
+
+
 
 app.listen(PORT, () => {
     console.log("App listening on PORT " + PORT);
